@@ -20,6 +20,7 @@ export class MyCard extends LitElement {
     this.information = "Some information";
     this.buttonLink = "https://hax.psu.edu";
     this.buttonDescription = "Click me!";
+    this.fancy = false;
   }
 
   static get styles() {
@@ -28,6 +29,9 @@ export class MyCard extends LitElement {
         display: block;
       }
 
+      :host([fancy]) .card {
+        border-color: var(--my-card-fancy-border-color, #000000);
+      }
       .card {
       max-width: 400px;
       background-color: var(--my-card-background-color, #eeeeee);
@@ -77,23 +81,21 @@ export class MyCard extends LitElement {
 
   render() {
     return html`
-    <div class="card-container">
-      <div class=card>
-      <div>
-        <h1 class=heading>${this.title}</h1>
-      </div>
-      <div>
-        <img class=tiger-image src="${this.image}" alt="${this.alt}">
-      </div>
-      <div class=information>
-        <p>${this.information}</p>
-      </div>
-      <div class="card-button">
-        <a href="${this.buttonLink}">
-          <button class=hax-button>${this.buttonDescription}</button>
-        </a>
-      </div>
-      </div>
+    <div class=card>
+    <div>
+      <h1 class=heading>${this.title}</h1>
+    </div>
+    <div>
+      <img class=tiger-image src="${this.image}" alt="${this.alt}">
+    </div>
+    <div class=information>
+      <p><slot>${this.information}</slot></p>
+    </div>
+    <div class="card-button">
+      <a href="${this.buttonLink}">
+        <button class=hax-button>${this.buttonDescription}</button>
+      </a>
+    </div>
     </div>`;
 
   }
@@ -106,6 +108,7 @@ export class MyCard extends LitElement {
       information: { type: String },
       buttonLink: { type: String },
       buttonDescription: { type: String },
+      fancy: { type: Boolean, reflect: true }
     };
   }
 }
