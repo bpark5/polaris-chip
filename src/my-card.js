@@ -89,7 +89,7 @@ export class MyCard extends LitElement {
       <img class=tiger-image src="${this.image}" alt="${this.alt}">
     </div>
     <details ?open="${this.fancy}">
-      <summary>Description</summary>
+      <summary class="information" >Description</summary>
       <div class=information>
         <p><slot>${this.information}</slot></p>
       </div>
