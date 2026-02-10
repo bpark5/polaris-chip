@@ -96,7 +96,14 @@ export class MyCard extends LitElement {
         <button class=hax-button>${this.buttonDescription}</button>
       </a>
     </div>
-    </div>`;
+    </div>
+    
+    <details ?open="${this.fancy}">
+      <summary>Description</summary>
+      <div>
+        <slot>${this.description}</slot>
+      </div>
+    </details>`;
 
   }
 
