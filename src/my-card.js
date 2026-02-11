@@ -30,10 +30,12 @@ export class MyCard extends LitElement {
       }
 
       :host([fancy]) .card {
-        border-color: var(--my-card-fancy-border-color, #000000);
+        border: 8px var(--my-card-fancy-border-color, #000000) solid;
       }
+
       .card {
-      max-width: 400px;
+      width: 400px;
+      height: 300px;
       background-color: var(--my-card-background-color, #eeeeee);
       padding: 4px;
       margin: 16px;
@@ -48,14 +50,16 @@ export class MyCard extends LitElement {
       text-align: center;
       margin-bottom: 16px;
       color: var(--my-heading-color, #000);
+      overflow: auto;
       }
 
-      .tiger-image {
+      .image {
       border: 8px var(--my-image-border-color, #000) solid;
       display: block;
       margin: auto;
       margin-bottom: 8px;
-      width: 200px;
+      max-width: 200px;
+      height: 150px;
       }
 
       .information {
@@ -74,31 +78,41 @@ export class MyCard extends LitElement {
       margin: auto;
       }
       
-      .card-container {
-        display: flex;
+      details {
+        overflow-y: auto;
       }`;
+  }
+
+  openChanged(e) {
+    console.log(e);
+    if (e.target.getAttribute('open') !== null) {
+      this.fancy = true;
+    }
+    else {
+      this.fancy = false;
+    }
   }
 
   render() {
     return html`
     <div class=card>
-    <div>
-      <h1 class=heading>${this.title}</h1>
-    </div>
-    <div>
-      <img class=tiger-image src="${this.image}" alt="${this.alt}">
-    </div>
-    <details ?open="${this.fancy}">
-      <summary class="information" >Description</summary>
-      <div class=information>
-        <p><slot>${this.information}</slot></p>
+      <div>
+        <h1 class=heading>${this.title}</h1>
       </div>
-    </details>
-    <div class="card-button">
-      <a href="${this.buttonLink}">
-        <button class=hax-button>${this.buttonDescription}</button>
-      </a>
-    </div>
+      <div>
+        <img class=image src="${this.image}" alt="${this.alt}">
+      </div>
+      <details ?open="${this.fancy}" @toggle="${this.openChanged}">
+        <summary class="information" >Description</summary>
+        <div class=information>
+          <slot>${this.information}</slot>
+        </div>
+      </details>
+      <div class="card-button">
+        <a href="${this.buttonLink}">
+          <button class=hax-button>${this.buttonDescription}</button>
+        </a>
+      </div>
     </div>`;
 
   }
