@@ -26,20 +26,41 @@ export class MyCard extends LitElement {
   static get styles() {
     return css`
       :host {
-        display: block;
+        display: inline-block;
+        vertical-align: top;
+        margin: 8px;
       }
 
       :host([fancy]) .card {
-        border: 8px var(--my-card-fancy-border-color, #000000) solid;
+        background-color: var(--my-card-fancy-background-color, #da80b4);
+        border-color: var(--my-card-fancy-border-color, #f5f5dc);
+      }
+
+      :host([fancy]) .information {
+        color: var(--my-information-fancy-color, #f5f5dc);
+      }
+      :host([fancy]) .heading {
+        color: var(--my-heading-fancy-color, #f5f5dc);
+      }
+
+      :host([fancy]) .button {
+        background-color: var(--my-button-fancy-background-color, #f5f5dc);
+        color: var(--my-button-fancy-font-color, #da80b4);
+      }
+
+      :host([fancy]) .image {
+        border-color: var(--my-image-fancy-border-color, #f5f5dc);
       }
 
       .card {
-      width: 400px;
-      height: 300px;
+      width: 350px;
+      height: 400px;
       background-color: var(--my-card-background-color, #eeeeee);
       padding: 4px;
       margin: 16px;
       border: 4px var(--my-card-border-color, #000) solid;
+      overflow: hidden;
+      position: relative;
       }
 
       .heading {
@@ -69,17 +90,24 @@ export class MyCard extends LitElement {
       color: var(--my-information-color, #000);
       }
 
-      .hax-button {
+      .button {
       color: var(--my-button-font-color,#fff);
       background-color: var(--my-button-background-color, #000);
       font-size: 16px;
-      padding: 4px;
+      padding: 4px 8px;
       display: block;
       margin: auto;
+      max-width: 100px;
       }
       
       details {
+        height: 80px;
+      }
+      
+      details[open] .information {
+        max-height: 48px;
         overflow-y: auto;
+        margin: auto 16px;
       }`;
   }
 
@@ -110,10 +138,11 @@ export class MyCard extends LitElement {
       </details>
       <div class="card-button">
         <a href="${this.buttonLink}">
-          <button class=hax-button>${this.buttonDescription}</button>
+          <button class=button>${this.buttonDescription}</button>
         </a>
       </div>
-    </div>`;
+    </div>
+  `;
 
   }
 
