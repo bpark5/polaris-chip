@@ -1,7 +1,8 @@
 import { LitElement, html, css } from 'lit';
+import "@haxtheweb/meme-maker/meme-maker.js";
 
 /**
- * Now it's your turn. Here's what we need to try and do:
+ * Now it's your turn. Here's what we need to try and do: 
  * 1. Get you HTML from your card working in here 
  * 2. Get your CSS rescoped as needed to work here
  */
@@ -21,6 +22,8 @@ export class MyCard extends LitElement {
     this.buttonLink = "https://hax.psu.edu";
     this.buttonDescription = "Click me!";
     this.fancy = false;
+    this.topText = "I";
+    this.bottomText = "Like golf";
   }
 
   static get styles() {
@@ -79,8 +82,8 @@ export class MyCard extends LitElement {
       display: block;
       margin: auto;
       margin-bottom: 8px;
-      max-width: 200px;
-      height: 150px;
+      width: 200px;
+      max-height: 250px;
       }
 
       .information {
@@ -99,7 +102,7 @@ export class MyCard extends LitElement {
       margin: auto;
       max-width: 100px;
       }
-      
+
       details {
         height: 80px;
       }
@@ -128,7 +131,12 @@ export class MyCard extends LitElement {
         <h1 class=heading>${this.title}</h1>
       </div>
       <div>
-        <img class=image src="${this.image}" alt="${this.alt}">
+        <meme-maker class=image 
+          image-url="${this.image}" 
+          alt="${this.alt}" 
+          bottom-text="${this.bottomText}" 
+          top-text="${this.topText}"> 
+        </meme-maker>
       </div>
       <details ?open="${this.fancy}" @toggle="${this.openChanged}">
         <summary class="information" >Description</summary>
@@ -154,7 +162,9 @@ export class MyCard extends LitElement {
       information: { type: String },
       buttonLink: { type: String },
       buttonDescription: { type: String },
-      fancy: { type: Boolean, reflect: true }
+      fancy: { type: Boolean, reflect: true },
+      topText: { type: String },
+      bottomText: { type: String }
     };
   }
 }
